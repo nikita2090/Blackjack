@@ -1,0 +1,41 @@
+.pareSt {
+	display: flex;
+}
+
+.cardSt {
+	width: 63px;
+	height: 89px;
+	border: 1px solid green;
+}
+
+.spades {
+	color: black;
+}
+
+.spades:after {
+	content: '\2660';
+}
+
+.clubs {
+	color: black;
+}
+
+.clubs:after {
+	content: '\2663';
+}
+
+.hearts {
+	color: red;
+}
+
+.hearts:after {
+	content: '\2665';
+}
+
+.diams {
+	color: red;
+}
+
+.diams:after {
+	content: '\2666';
+}
