@@ -1,88 +1,125 @@
-import React, {useState} from 'react';
-
+import React, {useState, useEffect} from 'react';
 
 import styles from './App.module.css';
 
-import cards from './sources/playingCards';
+import Hand from './components/hand/Hand';
+
+import {cards, mixCards} from "./sources/playingCards";
+let playingCards = null;
+
+
+const startGame = (setUserHand, setDealerHand, deposit, setDeposit, bet) => {
+	playingCards = [...cards];
+	mixCards(playingCards);
+
+	const pare = [playingCards.pop(), playingCards.pop()];
+	setUserHand(pare);
+
+	setDealerHand([playingCards.pop()]);
+
+	setDeposit(deposit - bet);
+};
+const changeBet = ({target: {name}}, bet, setBet) => {
+	let result;
+	switch (name) {
+		case 'plus':
+			result = bet + 25;
+			break;
+		case 'minus':
+			result = bet - 25;
+			break;
+		case 'double':
+			result = bet * 2;
+			break;
+		default:
+			return null;
+	}
+
+	if (result < 50) return;
+	setBet(result);
+};
+const getCard = (userHand, setUserHand) => {
+	setUserHand([...userHand, playingCards.pop()]);
+};
+const calculatePoints = (hand, setUserPoints) => {
+	let result = hand.reduce((prev, next) => {
+		let cost = 0;
+		switch (next.name) {
+			case 'J':
+			case 'Q':
+			case 'K':
+				cost = 10;
+				break;
+			case 'A':
+				cost = 11;
+				break;
+			default:
+				cost = +next.name;
+		}
+		return prev + cost;
+	}, 0);
+
+	setUserPoints(result);
+};
+
+
 
 const App = () => {
 	const [deposit, setDeposit] = useState(1000);
 	const [bet, setBet] = useState(50);
 	const [userHand, setUserHand] = useState([]);
+	const [userPoints, setUserPoints] = useState(0);
+
 	const [dealerHand, setDealerHand] = useState([]);
 
-	const changeBet = ({target: {name}}) => {
-		let result = null;
-		switch (name) {
-			case 'plus':
-				result = bet + 25;
-				break;
-			case 'minus':
-				result = bet - 25;
-				break;
-			case 'double':
-				result = bet * 2;
-				break;
-			default:
-				return null;
+
+	const go = () => {
+		startGame(setUserHand, setDealerHand, deposit, setDeposit, bet);
+	};
+	const change = (e) => {
+		changeBet(e, bet, setBet);
+	};
+	const hit = () => {
+		getCard(userHand, setUserHand);
+	};
+
+
+	useEffect(() => {
+		calculatePoints(userHand, setUserPoints);
+	}, [userHand]);
+
+	useEffect(() => {
+		if (userPoints > 21) {
+			alert('You lose');
+		} else if (userPoints === 21) {
+			alert('Blackjack!');
 		}
+	}, [userPoints]);
 
-		if (result < 50) return;
-		setBet(result);
-	};
-
-
-	const startGame = () => {
-		let playingCards = [...cards];
-		mixCards(playingCards);
-
-		const pare = [playingCards.pop(), playingCards.pop()];
-		setUserHand(pare);
-
-		setDealerHand([playingCards.pop()]);
-	};
-
-
-	const {cardSt, pareSt} = styles;
 	return (
 		<main>
-			<div className={pareSt}>
-				{dealerHand.map(({name, suit, id}) => (
-					<div className={cardSt}
-					     key={id}>
-						<span className={styles[suit]}>{name}</span>
-					</div>
-				))}
-			</div>
+			<Hand hand={dealerHand}/>
+			<Hand hand={userHand}/>
 
-			<div className={pareSt}>
-				{userHand.map(({name, suit, id}) => (
-					<div className={cardSt}
-					     key={id}>
-						<span className={styles[suit]}>{name}</span>
-					</div>
-				))}
-			</div>
 
 			<div>
-				<button name='minus' onClick={changeBet}>-</button>
+				<button name='minus' onClick={change}>-</button>
 				<span>{bet}</span>
-				<button name='plus' onClick={changeBet}>+</button>
-				<button name='double' onClick={changeBet}>x2</button>
+				<button name='plus' onClick={change}>+</button>
+				<button name='double' onClick={change}>x2</button>
 			</div>
 
-			<div>{deposit}</div>
+			<div>Your deposit:{deposit}</div>
+			<div>POINTS:{userPoints}</div>
+
 
 			<div>
-				<button onClick={startGame}>GO</button>
-				<button>HIT</button>
+				<button onClick={go}>GO</button>
+				<button onClick={hit}>HIT</button>
 				<button>STOP</button>
 			</div>
 		</main>
 	)
 };
-
-
-const mixCards = (cards) => cards.sort(() => Math.random() - 0.5);
 
 export default App;

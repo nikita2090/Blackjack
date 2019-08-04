@@ -16,4 +16,7 @@ for (let i = 0; i < decksNumber; i++) {
 	}
 }
 
-export default cards;
+
+const mixCards = (cards) => cards.sort(() => Math.random() - 0.5);
+
+export  {cards, mixCards};
