@@ -3,13 +3,15 @@ import React, { useReducer, useEffect } from 'react';
 /*import styles from './App.module.css';*/
 
 import Hand from './components/hand/Hand';
+import BetControls from "./components/bet-controls/BetControls";
+import GameControls from "./components/game-controls/GameControls";
+
 import { cards, mixCards } from "./sources/playingCards";
 
 
 let playingCards = null;
 let deposit = 1000;
-/*let userPoints = 0;
-let dealerPoints = 0;*/
+let winner = 'no';
 
 
 const reducer = (state, { type, card, bet, isUser, isDealerTurn }) => {
@@ -74,18 +76,12 @@ const App = () => {
 		dispatch({ type: 'addCard', isUser: false, card: playingCards.pop() });
 	};
 
-	const calcDeposit = () => {
-		const { bet } = state;
-		deposit = deposit - bet;
-	};
-
 	const startGame = () => {
+		winner = null;
+
 		playingCards = [...cards];
 		mixCards(playingCards);
-
 		dealCards();
-
-		calcDeposit();
 	};
 
 	const changeBet = ({ target: { name } }) => {
@@ -144,10 +140,35 @@ const App = () => {
 		dispatch({
 			type: 'toggleTurn',
 			isDealerTurn: true
-		})
+		});
+	};
+
+	const calcWinner = (winner) => {
+		if (winner) return;
+
+		if (dealerPoints > 21 || userPoints > dealerPoints) {
+			return 'user'
+		} else if (userPoints < dealerPoints) {
+			return 'dealer'
+		} else {
+			return 'push'
+		}
+	};
+
+	const calcPayment = (winner, deposit) => {
+		let result;
+		if (winner === 'user') {
+			result = deposit + bet * 2;
+		} else if (winner === 'dealer') {
+			result = deposit - bet;
+		} else {
+			result = deposit;
+		}
+		return result;
 	};
 
 	useEffect(() => {
+		console.log('effect');
 		const { isDealerTurn } = state;
 		if (!isDealerTurn) return;
 
@@ -163,6 +184,8 @@ const App = () => {
 				type: 'toggleTurn',
 				isDealerTurn: false
 			});
+			winner = calcWinner();
+			deposit = calcPayment(winner, deposit);
 		}
 	});
 
@@ -170,29 +193,34 @@ const App = () => {
 	const userPoints = calculatePoints(userHand);
 	let dealerPoints = calculatePoints(dealerHand);
 
+	if (userPoints === 21) {
+		winner = 'user';
+		deposit = calcPayment(winner, deposit);
+	} else if (userPoints > 21) {
+		winner = 'dealer';
+		deposit = calcPayment(winner, deposit);
+	}
+
 	return (
 		<main>
-			<Hand hand={dealerHand}/>
+			<Hand hand={dealerHand}
+			      points={dealerPoints}/>
 			<div>DEALER'S POINTS:{dealerPoints}</div>
+
+			<div>Winner:{winner}</div>
 
 			<div>POINTS:{userPoints}</div>
 			<Hand hand={userHand}/>
 
-			<div>
-				<button name='minus' onClick={changeBet}>-</button>
-				<span>{bet}</span>
-				<button name='plus' onClick={changeBet}>+</button>
-				<button name='double' onClick={changeBet}>x2</button>
-			</div>
+			<BetControls bet={bet}
+			             changeBet={changeBet}
+			             deposit={deposit}
+			             winner={winner}/>
 
-			<div>Your deposit:{deposit}</div>
-
-
-			<div>
-				<button onClick={startGame}>GO</button>
-				<button onClick={hit}>HIT</button>
-				<button onClick={stop}>STOP</button>
-			</div>
+			<GameControls start={startGame}
+			              hit={hit}
+			              stop={stop}
+			              winner={winner}/>
 		</main>
 	)
 };
