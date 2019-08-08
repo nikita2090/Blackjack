@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 /*import styles from './App.module.css';*/
 
@@ -12,7 +12,7 @@ let deposit = 1000;
 let dealerPoints = 0;*/
 
 
-const userReducer = (state, { type, card, bet, isUser }) => {
+const reducer = (state, { type, card, bet, isUser, isDealerTurn }) => {
 	let { userHand, dealerHand } = state;
 
 	let property;
@@ -44,27 +44,33 @@ const userReducer = (state, { type, card, bet, isUser }) => {
 				...state,
 				bet: bet
 			};
+
+		case 'toggleTurn':
+			return {
+				...state,
+				isDealerTurn
+			};
 		default:
-			throw new Error('Unknown action');
+			throw new Error('Unknown action!');
 	}
 };
 
-const App = () => {
-	const initialState = {
-		userHand: [],
-		dealerHand: [],
-		bet: 50,
-		isDealersTurn: false,
-	};
+const initialState = {
+	userHand: [],
+	dealerHand: [],
+	bet: 50,
+	isDealersTurn: false,
+};
 
-	const [state, dispatch] = useReducer(userReducer, initialState);
+const App = () => {
+	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const dealCards = () => {
-		dispatch({ type: 'clean', isUser: true});
+		dispatch({ type: 'clean', isUser: true });
 		dispatch({ type: 'addCard', isUser: true, card: playingCards.pop() });
 		dispatch({ type: 'addCard', isUser: true, card: playingCards.pop() });
 
-		dispatch({ type: 'clean', isUser: false});
+		dispatch({ type: 'clean', isUser: false });
 		dispatch({ type: 'addCard', isUser: false, card: playingCards.pop() });
 	};
 
@@ -98,6 +104,7 @@ const App = () => {
 			default:
 				return null;
 		}
+
 		if (result < 50) return;
 
 		dispatch({
@@ -112,10 +119,6 @@ const App = () => {
 			isUser: true,
 			card: playingCards.pop()
 		});
-	};
-
-	const stop = () => {
-
 	};
 
 	const calculatePoints = (hand) => {
@@ -137,38 +140,43 @@ const App = () => {
 		}, 0);
 	};
 
+	const stop = () => {
+		dispatch({
+			type: 'toggleTurn',
+			isDealerTurn: true
+		})
+	};
 
-	/*useEffect(() => {
-		if (userPoints > 21) {
-			alert('You lose');
-		} else if (userPoints === 21) {
-			alert('Blackjack!');
+	useEffect(() => {
+		const { isDealerTurn } = state;
+		if (!isDealerTurn) return;
+
+		if (dealerPoints < 17) {
+			dispatch({
+				type: 'addCard',
+				isUser: false,
+				card: playingCards.pop()
+			});
+			dealerPoints = calculatePoints(dealerHand);
+		} else {
+			dispatch({
+				type: 'toggleTurn',
+				isDealerTurn: false
+			});
 		}
-	}, [userPoints]);*/
+	});
 
-	/*useEffect(() => {
-		if (!isDealersTurn) return;
+	const { userHand, dealerHand, bet } = state;
+	const userPoints = calculatePoints(userHand);
+	let dealerPoints = calculatePoints(dealerHand);
 
-		letDealerTurn(dealerHand, setDealerHand);
-		calculatePoints(dealerHand, setDealerPoints);
-
-		console.log(dealerPoints);
-		if (dealerPoints > 18) {
-			setTurn(false);
-		}
-
-	}, [isDealersTurn, dealerHand, dealerPoints]);*/
-
-
-	let { userHand, dealerHand, bet } = state;
 	return (
 		<main>
 			<Hand hand={dealerHand}/>
-			<div>DEALER'S POINTS:{calculatePoints(dealerHand)}</div>
+			<div>DEALER'S POINTS:{dealerPoints}</div>
 
-			<div>POINTS:{calculatePoints(userHand)}</div>
+			<div>POINTS:{userPoints}</div>
 			<Hand hand={userHand}/>
-
 
 			<div>
 				<button name='minus' onClick={changeBet}>-</button>
