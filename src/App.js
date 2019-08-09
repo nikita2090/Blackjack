@@ -118,7 +118,8 @@ const App = () => {
 	};
 
 	const calculatePoints = (hand) => {
-		return hand.reduce((prev, next) => {
+		let acesAmount = 0;
+		let sum = hand.reduce((prev, next) => {
 			let cost = 0;
 			switch (next.name) {
 				case 'J':
@@ -128,12 +129,17 @@ const App = () => {
 					break;
 				case 'A':
 					cost = 11;
+					acesAmount++;
 					break;
 				default:
 					cost = +next.name;
 			}
 			return prev + cost;
 		}, 0);
+
+		if (!acesAmount || sum < 21) return sum;
+
+		return sum - 11 * acesAmount + acesAmount;
 	};
 
 	const stop = () => {
