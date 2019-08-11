@@ -1,7 +1,7 @@
 import React from 'react';
 /*import PropTypes from ''*/
 
-import styles from './GameControls.module.css';
+/*import styles from './GameControls.module.css';*/
 
 
 const GameControls = ({winner, start, hit, stop}) => (

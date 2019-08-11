@@ -9,11 +9,6 @@ import GameControls from "./components/game-controls/GameControls";
 import { cards, mixCards } from "./sources/playingCards";
 
 
-let playingCards = null;
-let deposit = 1000;
-let winner = 'no';
-
-
 const reducer = (state, { type, card, bet, isUser, isDealerTurn }) => {
 	let { userHand, dealerHand } = state;
 
@@ -32,7 +27,7 @@ const reducer = (state, { type, card, bet, isUser, isDealerTurn }) => {
 		case 'addCard':
 			return {
 				...state,
-				[property]: [...value, card]
+				[property]: [ ...value, card ]
 			};
 
 		case 'clean':
@@ -64,25 +59,14 @@ const initialState = {
 	isDealersTurn: false,
 };
 
+let playingCards = null;
+let deposit = 1000;
+let userPoints = 0;
+let dealerPoints = 0;
+let winner = 'no';
+
 const App = () => {
-	const [state, dispatch] = useReducer(reducer, initialState);
-
-	const dealCards = () => {
-		dispatch({ type: 'clean', isUser: true });
-		dispatch({ type: 'addCard', isUser: true, card: playingCards.pop() });
-		dispatch({ type: 'addCard', isUser: true, card: playingCards.pop() });
-
-		dispatch({ type: 'clean', isUser: false });
-		dispatch({ type: 'addCard', isUser: false, card: playingCards.pop() });
-	};
-
-	const startGame = () => {
-		winner = null;
-
-		playingCards = [...cards];
-		mixCards(playingCards);
-		dealCards();
-	};
+	const [ state, dispatch ] = useReducer(reducer, initialState);
 
 	const changeBet = ({ target: { name } }) => {
 		const { bet } = state;
@@ -109,15 +93,75 @@ const App = () => {
 		});
 	};
 
+	const startGame = () => {
+		winner = null;
+
+		playingCards = [ ...cards ];
+		mixCards(playingCards);
+		dealCards();
+
+		/*dispatch({ type: 'clean', isUser: true });
+		dispatch({ type: 'clean', isUser: false });
+
+		dispatch({ type: 'addCard', isUser: true, card: { name: 'A', suit: 'spades' } });
+		dispatch({ type: 'addCard', isUser: true, card: { name: 'K', suit: 'hearts' } });
+
+		dispatch({ type: 'addCard', isUser: false, card: { name: '2', suit: 'spades' } });*/
+	};
+
 	const hit = () => {
 		dispatch({
 			type: 'addCard',
 			isUser: true,
 			card: playingCards.pop()
 		});
+
+		/*dispatch({ type: 'addCard', isUser: true, card: { name: 'A', suit: 'hearts' } });*/
 	};
 
-	const calculatePoints = (hand) => {
+	const stop = () => {
+		dispatch({
+			type: 'toggleTurn',
+			isDealerTurn: true
+		});
+	};
+
+	useEffect(() => {
+		if (winner) return;
+
+		const { isDealerTurn } = state;
+		if (!isDealerTurn) return;
+
+		if (dealerPoints < 17) {
+			dispatch({
+				type: 'addCard',
+				isUser: false,
+				card: playingCards.pop()
+			});
+
+			/*dispatch({ type: 'addCard', isUser: false, card: { name: '5', suit: 'hearts' } });*/
+		} else {
+			dispatch({
+				type: 'toggleTurn',
+				isDealerTurn: false
+			});
+			winner = calcWinner(winner, userHand, userPoints, dealerHand, dealerPoints);
+			deposit = calcDeposit(winner, deposit, bet);
+		}
+	});
+
+
+	const dealCards = () => {
+		dispatch({ type: 'clean', isUser: true });
+		dispatch({ type: 'addCard', isUser: true, card: playingCards.pop() });
+		dispatch({ type: 'addCard', isUser: true, card: playingCards.pop() });
+
+		dispatch({ type: 'clean', isUser: false });
+		dispatch({ type: 'addCard', isUser: false, card: playingCards.pop() });
+	};
+
+
+	const calcPoints = (hand) => {
 		let acesAmount = 0;
 		let sum = hand.reduce((prev, next) => {
 			let cost = 0;
@@ -137,20 +181,41 @@ const App = () => {
 			return prev + cost;
 		}, 0);
 
-		if (!acesAmount || sum < 21) return sum;
+		if (!acesAmount || sum < 22) return sum;
 
 		return sum - 11 * acesAmount + acesAmount;
 	};
 
-	const stop = () => {
-		dispatch({
-			type: 'toggleTurn',
-			isDealerTurn: true
-		});
+	const calcEarlyWinner = (userHand, userPoints, dealerPoints) => {
+		const isWinWith21 = () => {
+			if (userPoints !== 21) return false;
+
+			switch (dealerPoints) {
+				case 10:
+				case 11:
+				case 21:
+					return false;
+				default:
+			}
+
+			return userHand.length === 2;
+		};
+
+		if (isWinWith21()) {
+			return 'user';
+		} else if (userPoints > 21) {
+			return 'dealer';
+		} else {
+			return null;
+		}
 	};
 
-	const calcWinner = (winner) => {
-		if (winner) return;
+	const calcWinner = (winner, userHand, userPoints, dealerHand, dealerPoints) => {
+		if (winner) return winner;
+
+		if (userPoints === 21 && userHand.length === 2 && dealerHand.length > 2) {
+			return 'user'
+		}
 
 		if (dealerPoints > 21 || userPoints > dealerPoints) {
 			return 'user'
@@ -161,7 +226,7 @@ const App = () => {
 		}
 	};
 
-	const calcPayment = (winner, deposit) => {
+	const calcDeposit = (winner, deposit, bet) => {
 		let result;
 		if (winner === 'user') {
 			result = deposit + bet * 2;
@@ -173,39 +238,25 @@ const App = () => {
 		return result;
 	};
 
-	useEffect(() => {
-		console.log('effect');
-		const { isDealerTurn } = state;
-		if (!isDealerTurn) return;
 
-		if (dealerPoints < 17) {
-			dispatch({
-				type: 'addCard',
-				isUser: false,
-				card: playingCards.pop()
-			});
-			dealerPoints = calculatePoints(dealerHand);
-		} else {
-			dispatch({
-				type: 'toggleTurn',
-				isDealerTurn: false
-			});
-			winner = calcWinner();
-			deposit = calcPayment(winner, deposit);
-		}
-	});
+	const executeBeforeRender = () => {
+		if (winner) return;
+
+		userPoints = calcPoints(userHand);
+		dealerPoints = calcPoints(dealerHand);
+
+		const { isDealerTurn } = state;
+		if (isDealerTurn) return;
+
+		winner = calcEarlyWinner(userHand, userPoints, dealerPoints);
+
+		if (!winner) return;
+		deposit = calcDeposit(winner, deposit, bet);
+	};
 
 	const { userHand, dealerHand, bet } = state;
-	const userPoints = calculatePoints(userHand);
-	let dealerPoints = calculatePoints(dealerHand);
 
-	if (userPoints === 21) {
-		winner = 'user';
-		deposit = calcPayment(winner, deposit);
-	} else if (userPoints > 21) {
-		winner = 'dealer';
-		deposit = calcPayment(winner, deposit);
-	}
+	executeBeforeRender();
 
 	return (
 		<main>

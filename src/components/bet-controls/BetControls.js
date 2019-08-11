@@ -1,7 +1,7 @@
 import React from 'react';
 /*import PropTypes from ''*/
 
-import styles from './BetControls.module.css';
+/*import styles from './BetControls.module.css';*/
 
 
 const BetControls = ({ bet, changeBet, deposit, winner }) => (
