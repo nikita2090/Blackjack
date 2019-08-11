@@ -7,50 +7,9 @@ import BetControls from "./components/bet-controls/BetControls";
 import GameControls from "./components/game-controls/GameControls";
 
 import { cards, mixCards } from "./sources/playingCards";
+import { calcPoints, calcWinner, calcDeposit } from "./sources/calcFunctions";
+import reducer from './sources/reducer';
 
-
-const reducer = (state, { type, card, bet, isUser, isDealerTurn }) => {
-	let { userHand, dealerHand } = state;
-
-	let property;
-	let value;
-
-	if (isUser) {
-		property = 'userHand';
-		value = userHand;
-	} else {
-		property = 'dealerHand';
-		value = dealerHand;
-	}
-
-	switch (type) {
-		case 'addCard':
-			return {
-				...state,
-				[property]: [ ...value, card ]
-			};
-
-		case 'clean':
-			return {
-				...state,
-				[property]: []
-			};
-
-		case 'setBet':
-			return {
-				...state,
-				bet: bet
-			};
-
-		case 'toggleTurn':
-			return {
-				...state,
-				isDealerTurn
-			};
-		default:
-			throw new Error('Unknown action!');
-	}
-};
 
 const initialState = {
 	userHand: [],
@@ -67,6 +26,7 @@ let winner = 'no';
 
 const App = () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
+
 
 	const changeBet = ({ target: { name } }) => {
 		const { bet } = state;
@@ -103,10 +63,10 @@ const App = () => {
 		/*dispatch({ type: 'clean', isUser: true });
 		dispatch({ type: 'clean', isUser: false });
 
-		dispatch({ type: 'addCard', isUser: true, card: { name: 'A', suit: 'spades' } });
-		dispatch({ type: 'addCard', isUser: true, card: { name: 'K', suit: 'hearts' } });
+		dispatch({ type: 'addCard', isUser: true, card: { name: '3', suit: 'spades' } });
+		dispatch({ type: 'addCard', isUser: true, card: { name: '7', suit: 'hearts' } });
 
-		dispatch({ type: 'addCard', isUser: false, card: { name: '2', suit: 'spades' } });*/
+		dispatch({ type: 'addCard', isUser: false, card: { name: '10', suit: 'spades' } });*/
 	};
 
 	const hit = () => {
@@ -126,7 +86,22 @@ const App = () => {
 		});
 	};
 
-	useEffect(() => {
+
+	const executeBeforeRender = () => {
+		if (winner) return;
+		userPoints = calcPoints(userHand);
+		dealerPoints = calcPoints(dealerHand);
+
+		const { isDealerTurn } = state;
+		if (isDealerTurn) return;
+
+		calcEarlyWinner(userHand, userPoints, dealerPoints);
+
+		if (!winner) return;
+		deposit = calcDeposit(winner, deposit, bet);
+	};
+
+	const executeAfterRender = () => {
 		if (winner) return;
 
 		const { isDealerTurn } = state;
@@ -139,7 +114,7 @@ const App = () => {
 				card: playingCards.pop()
 			});
 
-			/*dispatch({ type: 'addCard', isUser: false, card: { name: '5', suit: 'hearts' } });*/
+			/*dispatch({ type: 'addCard', isUser: false, card: { name: '9', suit: 'hearts' } });*/
 		} else {
 			dispatch({
 				type: 'toggleTurn',
@@ -148,7 +123,9 @@ const App = () => {
 			winner = calcWinner(winner, userHand, userPoints, dealerHand, dealerPoints);
 			deposit = calcDeposit(winner, deposit, bet);
 		}
-	});
+	};
+
+	useEffect(executeAfterRender);
 
 
 	const dealCards = () => {
@@ -160,99 +137,26 @@ const App = () => {
 		dispatch({ type: 'addCard', isUser: false, card: playingCards.pop() });
 	};
 
-
-	const calcPoints = (hand) => {
-		let acesAmount = 0;
-		let sum = hand.reduce((prev, next) => {
-			let cost = 0;
-			switch (next.name) {
-				case 'J':
-				case 'Q':
-				case 'K':
-					cost = 10;
-					break;
-				case 'A':
-					cost = 11;
-					acesAmount++;
-					break;
-				default:
-					cost = +next.name;
-			}
-			return prev + cost;
-		}, 0);
-
-		if (!acesAmount || sum < 22) return sum;
-
-		return sum - 11 * acesAmount + acesAmount;
-	};
-
 	const calcEarlyWinner = (userHand, userPoints, dealerPoints) => {
-		const isWinWith21 = () => {
-			if (userPoints !== 21) return false;
-
-			switch (dealerPoints) {
-				case 10:
-				case 11:
-				case 21:
-					return false;
-				default:
+		if (userPoints === 21) {
+			if (userHand.length === 2) {
+				switch (dealerPoints) {
+					case 10:
+					case 11:
+					case 21:
+						stop();
+						break;
+					default:
+						winner = 'user';
+				}
+			} else {
+				stop();
 			}
-
-			return userHand.length === 2;
-		};
-
-		if (isWinWith21()) {
-			return 'user';
 		} else if (userPoints > 21) {
-			return 'dealer';
-		} else {
-			return null;
+			winner = 'dealer';
 		}
 	};
 
-	const calcWinner = (winner, userHand, userPoints, dealerHand, dealerPoints) => {
-		if (winner) return winner;
-
-		if (userPoints === 21 && userHand.length === 2 && dealerHand.length > 2) {
-			return 'user'
-		}
-
-		if (dealerPoints > 21 || userPoints > dealerPoints) {
-			return 'user'
-		} else if (userPoints < dealerPoints) {
-			return 'dealer'
-		} else {
-			return 'push'
-		}
-	};
-
-	const calcDeposit = (winner, deposit, bet) => {
-		let result;
-		if (winner === 'user') {
-			result = deposit + bet * 2;
-		} else if (winner === 'dealer') {
-			result = deposit - bet;
-		} else {
-			result = deposit;
-		}
-		return result;
-	};
-
-
-	const executeBeforeRender = () => {
-		if (winner) return;
-
-		userPoints = calcPoints(userHand);
-		dealerPoints = calcPoints(dealerHand);
-
-		const { isDealerTurn } = state;
-		if (isDealerTurn) return;
-
-		winner = calcEarlyWinner(userHand, userPoints, dealerPoints);
-
-		if (!winner) return;
-		deposit = calcDeposit(winner, deposit, bet);
-	};
 
 	const { userHand, dealerHand, bet } = state;
 
