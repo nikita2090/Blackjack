@@ -164,8 +164,7 @@ const App = () => {
 
 	return (
 		<main>
-			<Hand hand={dealerHand}
-			      points={dealerPoints}/>
+			<Hand hand={dealerHand}/>
 			<div>DEALER'S POINTS:{dealerPoints}</div>
 
 			<div>Winner:{winner}</div>
