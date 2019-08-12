@@ -55,6 +55,7 @@ const App = () => {
 
 	const startGame = () => {
 		winner = null;
+		deposit = calcDeposit(winner, deposit, bet);
 
 		playingCards = [ ...cards ];
 		mixCards(playingCards);

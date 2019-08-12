@@ -40,13 +40,14 @@ export const calcWinner = (winner, userHand, userPoints, dealerHand, dealerPoint
 };
 
 export const calcDeposit = (winner, deposit, bet) => {
-	let result;
-	if (winner === 'user') {
-		result = deposit + bet * 2;
-	} else if (winner === 'dealer') {
-		result = deposit - bet;
-	} else {
-		result = deposit;
+	switch(winner){
+		case 'user':
+			return deposit + bet * 2;
+		case 'dealer':
+			return deposit;
+		case 'push':
+			return deposit + bet;
+		default:
+			return deposit - bet;
 	}
-	return result;
 };
