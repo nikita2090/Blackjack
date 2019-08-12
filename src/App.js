@@ -99,7 +99,7 @@ const App = () => {
 		calcEarlyWinner(userHand, userPoints, dealerPoints);
 
 		if (!winner) return;
-		deposit = calcDeposit(winner, deposit, bet);
+		deposit = calcDeposit(winner, deposit, bet, userHand, userPoints);
 	};
 
 	const executeAfterRender = () => {
@@ -122,7 +122,7 @@ const App = () => {
 				isDealerTurn: false
 			});
 			winner = calcWinner(winner, userHand, userPoints, dealerHand, dealerPoints);
-			deposit = calcDeposit(winner, deposit, bet);
+			deposit = calcDeposit(winner, deposit, bet, userHand, userPoints);
 		}
 	};
 

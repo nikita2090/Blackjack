@@ -39,9 +39,12 @@ export const calcWinner = (winner, userHand, userPoints, dealerHand, dealerPoint
 	}
 };
 
-export const calcDeposit = (winner, deposit, bet) => {
-	switch(winner){
+export const calcDeposit = (winner, deposit, bet, userHand = {}, userPoints = 0) => {
+	switch (winner) {
 		case 'user':
+			if (userPoints === 21 && userHand.length === 2) {
+				return deposit + bet * 2.5;
+			}
 			return deposit + bet * 2;
 		case 'dealer':
 			return deposit;
