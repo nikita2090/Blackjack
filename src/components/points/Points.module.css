@@ -1,0 +1,11 @@
+.wrap {
+	display: flex;
+	justify-content: center;
+}
+
+.pointsSt {
+	padding: 2px 8px 4px;
+	text-align: center;
+
+	background: rgba(0, 0, 0, .6);
+}

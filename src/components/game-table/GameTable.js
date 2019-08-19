@@ -5,10 +5,12 @@ import React, { useReducer, useEffect } from 'react';
 import Hand from '../hand/Hand';
 import BetControls from "../bet-controls/BetControls";
 import GameControls from "../game-controls/GameControls";
+import Points from "../points/Points";
 
 import { cards, mixCards } from "../../sources/playingCards";
 import { calcPoints, calcWinner, calcDeposit } from "../../sources/calcFunctions";
 import reducer from '../../sources/reducer';
+
 
 
 const initialState = {
@@ -166,11 +168,12 @@ const GameTable = () => {
 	return (
 		<main>
 			<Hand hand={dealerHand}/>
-			<div>DEALER'S POINTS:{dealerPoints}</div>
+			<Points points={dealerPoints}/>
+
 
 			<div>Winner:{winner}</div>
 
-			<div>POINTS:{userPoints}</div>
+			<Points points={userPoints}/>
 			<Hand hand={userHand}/>
 
 			<BetControls bet={bet}
@@ -183,7 +186,7 @@ const GameTable = () => {
 			              stop={stop}
 			              winner={winner}/>
 		</main>
-	)
+	);
 };
 
 export default GameTable;
