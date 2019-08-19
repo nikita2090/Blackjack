@@ -6,6 +6,7 @@ import Hand from '../hand/Hand';
 import BetControls from "../bet-controls/BetControls";
 import GameControls from "../game-controls/GameControls";
 import Points from "../points/Points";
+import Rules from "../rules/Rules";
 
 import { cards, mixCards } from "../../sources/playingCards";
 import { calcPoints, calcWinner, calcDeposit } from "../../sources/calcFunctions";
@@ -170,7 +171,7 @@ const GameTable = () => {
 			<Hand hand={dealerHand}/>
 			<Points points={dealerPoints}/>
 
-
+			<Rules/>
 			<div>Winner:{winner}</div>
 
 			<Points points={userPoints}/>
