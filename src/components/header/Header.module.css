@@ -1,0 +1,22 @@
+@media screen and (min-width: 0px ){
+	.header {
+		display: flex;
+		justify-content: center;
+		padding-top: 12px;
+	}
+
+	.title {
+		font-size: 28px;
+	}
+}
+
+@media screen and (min-width: 768px ){
+	.header {
+		padding-top: 14px;
+		padding-bottom: 10px;
+	}
+
+	.title {
+		font-size: 36px;
+	}
+}

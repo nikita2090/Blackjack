@@ -1,12 +1,14 @@
 import React from 'react';
 /*import PropTypes from ''*/
 
-//import styles from './Header.module.css';
+import styles from './Header.module.css';
 
+
+const { header, title } = styles;
 
 const Header = () => (
-	<header>
-		<h1>Blackjack</h1>
+	<header className={header}>
+		<h1 className={title}>Blackjack</h1>
 	</header>
 );
 
