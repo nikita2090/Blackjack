@@ -1,46 +1,41 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+	"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+	sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 
 .spades {
-  color: black;
+	color: black;
 }
 
 .spades:after {
-  content: '\2660';
+	content: '\2660';
 }
 
 .clubs {
-  color: black;
+	color: black;
 }
 
 .clubs:after {
-  content: '\2663';
+	content: '\2663';
 }
 
 .hearts {
-  color: red;
+	color: red;
 }
 
 .hearts:after {
-  content: '\2665';
+	content: '\2665';
 }
 
 .diams {
-  color: red;
+	color: red;
 }
 
 .diams:after {
-  content: '\2666';
+	content: '\2666';
 }

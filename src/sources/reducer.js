@@ -16,7 +16,7 @@ const reducer = (state, { type, card, bet, isUser, isDealerTurn }) => {
 		case 'addCard':
 			return {
 				...state,
-				[property]: [ ...value, card ]
+				[property]: [...value, card]
 			};
 
 		case 'clean':
