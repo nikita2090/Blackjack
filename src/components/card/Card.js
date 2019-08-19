@@ -13,7 +13,7 @@ const Card = ({ suit, name }) => {
 		<div className={card}>
 			<span className={suit}>{name}</span>
 			<div className={pictureWrap}>
-				<i className={bigSuit}></i>
+				<span className={bigSuit}></span>
 			</div>
 		</div>
 	);
