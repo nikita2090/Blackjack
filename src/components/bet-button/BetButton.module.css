@@ -7,16 +7,16 @@
 	font-weight: bold;
 }
 
-.btn:disabled {
-	background: lightgray;
-}
-
 .btn:hover {
 	background: #eac300;
 }
 
 .btn:active {
 	background: goldenrod;
+}
+
+.btn:disabled {
+	background: lightgray;
 }
 
 .btnLeft {

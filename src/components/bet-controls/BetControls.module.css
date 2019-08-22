@@ -8,20 +8,21 @@
 	display: flex;
 	justify-content: center;
 	position: relative;
+
+	--panel-middle-width: 200px;
+	--bet-height: 40px;
 }
 
 .betSt {
-	width: 140px;
-	height: 40px;
+	width: var(--panel-middle-width);
+	height: var(--bet-height);
 
 	background: gold;
 	text-align: center;
+	line-height: var(--bet-height);
 	font-size: 16px;
 	font-weight: bold;
-	line-height: 40px;
 }
 
-.depositSt {
 
-}
 
