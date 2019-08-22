@@ -1,0 +1,27 @@
+.wrap {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.panel {
+	display: flex;
+	justify-content: center;
+	position: relative;
+}
+
+.betSt {
+	width: 140px;
+	height: 40px;
+
+	background: gold;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 40px;
+}
+
+.depositSt {
+
+}
+
