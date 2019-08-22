@@ -181,10 +181,10 @@ const GameTable = () => {
 
 			<BetControls bet={bet}
 			             changeBet={changeBet}
-			             deposit={deposit}
 			             winner={winner}/>
 
 			<GameControls start={startGame}
+			              deposit={deposit}
 			              hit={hit}
 			              stop={stop}
 			              winner={winner}/>

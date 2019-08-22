@@ -1,14 +1,32 @@
 import React from 'react';
 /*import PropTypes from ''*/
 
-/*import styles from './GameControls.module.css';*/
+import styles from './GameControls.module.css';
 
+import ControlButton from '../control-btn/ControlButton';
 
-const GameControls = ({winner, start, hit, stop}) => (
-	<div>
-		{winner && <button onClick={start}>GO</button>}
-		{!winner && <button onClick={hit}>HIT</button>}
-		{!winner && <button onClick={stop}>STOP</button>}
+const { wrap, depositSt, panel } = styles;
+
+const GameControls = ({ winner, start, hit, stop, deposit }) => (
+	<div className={wrap}>
+		<div className={panel}>
+			<ControlButton name='stop'
+			               value='STOP'
+			               disabled={!!winner}
+			               onClick={stop}/>
+
+			<div className={depositSt}>Your deposit: {deposit}</div>
+
+			<ControlButton name='start'
+			               value='START'
+			               disabled={!winner}
+			               onClick={start}/>
+
+			<ControlButton name='hit'
+			               value='HIT'
+			               disabled={!!winner}
+			               onClick={hit}/>
+		</div>
 	</div>
 );
 

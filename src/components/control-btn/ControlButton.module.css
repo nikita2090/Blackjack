@@ -1,0 +1,46 @@
+.btn {
+	position: absolute;
+	border: none;
+	outline: none;
+
+	width: 70px;
+	height: 70px;
+	border-radius: 35px;
+	color: white;
+	font-weight: bold;
+}
+
+
+.start {
+	background: deepskyblue;
+	right: -80px;
+}
+
+.start:hover {
+	background: #00b5f5;
+}
+
+
+.stop {
+	background: orange;
+	left: -80px;
+}
+
+.stop:hover {
+	background: #f59b00;
+}
+
+
+.hit {
+	background: #3eff7b;
+	right: -160px;
+}
+
+.hit:hover {
+	background: #3ef17c;
+}
+
+
+.btn:disabled {
+	background: lightgray;
+}

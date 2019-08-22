@@ -1,0 +1,21 @@
+.wrap {
+	display: flex;
+	justify-content: center;
+	margin-top: 14px;
+}
+
+.panel {
+	display: flex;
+	justify-content: center;
+	position: relative;
+
+	--deposit-height: 70px;
+}
+
+.depositSt {
+	width: 200px;
+	height: var(--deposit-height);
+	line-height: var(--deposit-height);
+	text-align: center;
+	background: rgba(0, 0, 0, .6);;
+}
