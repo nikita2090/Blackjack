@@ -11,6 +11,14 @@
 	background: lightgray;
 }
 
+.btn:hover {
+	background: #eac300;
+}
+
+.btn:active {
+	background: goldenrod;
+}
+
 .btnLeft {
 	width: 30px;
 	border-radius: 15px 0 0 15px;
