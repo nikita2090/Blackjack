@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import './sources/globalStyles.css'
 import './index.css';
 
 import App from './App';

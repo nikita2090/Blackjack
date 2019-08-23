@@ -6,41 +6,41 @@
 	width: 70px;
 	height: 70px;
 	border-radius: 35px;
-	color: white;
+	color: var(--main-font-color);
 	font-weight: bold;
 }
 
 
 .start {
-	background: deepskyblue;
+	background: var(--start-btn-main-color);
 	right: -80px;
 }
 
 .start:hover {
-	background: #00b5f5;
+	background: var(--stop-btn-hover-color);
 }
 
 
 .stop {
-	background: orange;
+	background: var(--stop-btn-main-color);
 	left: -80px;
 }
 
 .stop:hover {
-	background: #f59b00;
+	background: var(--stop-btn-hover-color);
 }
 
 
 .hit {
-	background: #3eff7b;
+	background: var(--hit-btn-main-color);
 	right: -160px;
 }
 
 .hit:hover {
-	background: #3ef17c;
+	background: var(--hit-btn-hover-color);
 }
 
 
 .btn:disabled {
-	background: lightgray;
+	background: var(--disabled-button-color);
 }

@@ -1,0 +1,29 @@
+:root {
+	/*colors*/
+	--cloth: mediumseagreen;
+
+	--transparent-black: rgba(0, 0, 0, .6);
+
+	--bet-pannel-main-color: gold;
+	--bet-pannel-hover-color: #eac300;
+	--bet-pannel-active-color: #eac300;
+	--bet-panel-border-color: #5a5a59;
+
+	--cards-background-color: white;
+
+	--start-btn-main-color: deepskyblue;
+	--start-btn-hover-color: #00b5f5;
+
+	--stop-btn-main-color: orange;
+	--stop-btn-hover-color: #f59b00;
+
+	--hit-btn-main-color: #3eff7b;
+	--hit-btn-hover-color: #3ef17c;
+
+
+	--disabled-button-color: lightgray;
+
+	--main-font-color: white;
+	--cards-font-color-dark: black;
+	--cards-font-color-light: red;
+}

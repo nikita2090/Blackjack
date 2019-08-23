@@ -1,34 +1,33 @@
 .btn {
 	border: none;
-
 	outline: none;
-	background: gold;
-	color: white;
+	background: var(--bet-pannel-main-color);
+	color: var(--main-font-color);
 	font-weight: bold;
 }
 
 .btn:hover {
-	background: #eac300;
+	background: var(--bet-pannel-hover-color);
 }
 
 .btn:active {
-	background: goldenrod;
+	background: var(--bet-pannel-active-color);
 }
 
 .btn:disabled {
-	background: lightgray;
+	background: var(--disabled-button-color);
 }
 
 .btnLeft {
 	width: 30px;
 	border-radius: 15px 0 0 15px;
-	border-right: 1px solid #5a5a59;
+	border-right: 1px solid var(--bet-panel-border-color);;
 }
 
 .btnRight {
 	width: 30px;
 	border-radius: 0 15px 15px 0;
-	border-left: 1px solid #828200;
+	border-left: 1px solid var(--bet-panel-border-color);
 }
 
 .btnDouble {
@@ -38,5 +37,4 @@
 	height: 40px;
 	border-radius: 20px;
 	margin-left: 10px;
-
 }

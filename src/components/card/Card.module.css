@@ -7,7 +7,7 @@
 
 	font-size: 18px;
 	font-family: 'Lexend Deca', sans-serif;
-	background: white;
+	background: var(--cards-background-color);
 }
 
 
