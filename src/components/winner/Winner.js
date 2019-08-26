@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './Winner.module.css';
 
@@ -29,9 +30,19 @@ const Winner = ({ winner }) => {
 	);
 };
 
+
 const upFirstLetter = (string) => {
 	if (!string) return string;
 	return string[0].toUpperCase() + string.slice(1)
+};
+
+
+Winner.propTypes = {
+	winner: PropTypes.string
+};
+
+Winner.defaultProps = {
+	winner: ''
 };
 
 export default Winner;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import styles from './ControlButton.module.css';
@@ -32,6 +33,19 @@ const ControlButton = ({ name, value, disabled, onClick }) => {
 	);
 };
 
+
+ControlButton.propTypes = {
+	name: PropTypes.string,
+	value: PropTypes.string,
+	disabled: PropTypes.bool,
+	onClick: PropTypes.func,
+};
+
+ControlButton.defaultProps = {
+	name: '',
+	value: 'Simple Btn',
+	disabled: false,
+};
 
 export default ControlButton;
 

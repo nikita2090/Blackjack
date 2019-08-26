@@ -1,5 +1,5 @@
 import React from 'react';
-/*import PropTypes from ''*/
+import PropTypes from 'prop-types';
 
 import styles from './GameControls.module.css';
 
@@ -7,7 +7,7 @@ import ControlButton from '../control-btn/ControlButton';
 
 const { wrap, depositSt, panel } = styles;
 
-const GameControls = ({ winner, start, hit, stop, deposit }) => (
+const GameControls = ({ winner, deposit, start, hit, stop, }) => (
 	<div className={wrap}>
 		<div className={panel}>
 			<ControlButton name='stop'
@@ -29,5 +29,22 @@ const GameControls = ({ winner, start, hit, stop, deposit }) => (
 		</div>
 	</div>
 );
+
+
+GameControls.propTypes = {
+	winner: PropTypes.string,
+	deposit: PropTypes.number,
+	start: PropTypes.func,
+	hit: PropTypes.func,
+	stop: PropTypes.func,
+};
+
+GameControls.defaultProps = {
+	winner: '',
+	deposit: 0,
+	start: () => {},
+	hit: () => {},
+	stop: () => {},
+};
 
 export default GameControls;

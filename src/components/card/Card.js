@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import styles from './Card.module.css';
@@ -17,6 +17,17 @@ const Card = ({ suit, name }) => {
 			</div>
 		</div>
 	);
+};
+
+
+Card.propTypes = {
+	suit: PropTypes.string,
+	name: PropTypes.string,
+};
+
+Card.defaultProps = {
+	suit: '',
+	name: '',
 };
 
 export default Card;

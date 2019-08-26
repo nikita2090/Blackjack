@@ -1,5 +1,5 @@
 import React from 'react';
-/*import PropTypes from ''*/
+import PropTypes from 'prop-types';
 
 import styles from './Hand.module.css';
 
@@ -27,5 +27,13 @@ const Hand = ({ hand }) => {
 	)
 };
 
+
+Hand.propTypes = {
+	hand: PropTypes.array
+};
+
+Hand.defaultProps = {
+	hand: []
+};
 
 export default Hand;

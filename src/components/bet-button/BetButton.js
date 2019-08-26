@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import styles from './BetButton.module.css';
@@ -6,7 +7,7 @@ import styles from './BetButton.module.css';
 
 const { btn, btnLeft, btnRight, btnDouble } = styles;
 
-const BetButton = ({ value, name, onClick, winner }) => {
+const BetButton = ({ value, name, winner, onClick }) => {
 	let specialBtnClass;
 	switch (name) {
 		case 'minus':
@@ -26,11 +27,25 @@ const BetButton = ({ value, name, onClick, winner }) => {
 	return (
 		<button className={btnClass}
 		        name={name}
-		        onClick={onClick}
-		        disabled={!winner}>
+		        disabled={!winner}
+		        onClick={onClick}>
 			{value}
 		</button>
 	);
+};
+
+
+BetButton.propTypes = {
+	value: PropTypes.string,
+	name: PropTypes.string,
+	winner: PropTypes.string,
+	onClick: PropTypes.func,
+};
+
+BetButton.defaultProps = {
+	value: '0',
+	name: '',
+	winner: '',
 };
 
 export default BetButton;

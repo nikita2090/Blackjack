@@ -1,5 +1,4 @@
 import React from 'react';
-/*import PropTypes from ''*/
 
 import styles from './Header.module.css';
 
