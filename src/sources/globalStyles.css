@@ -26,4 +26,32 @@
 	--main-font-color: white;
 	--cards-font-color-dark: black;
 	--cards-font-color-light: red;
+
+
+}
+
+/*suits*/
+.spades, .clubs {
+	color: var(--cards-font-color-dark);
+}
+
+.spades:after {
+	content: '\2660';
+}
+
+.clubs:after {
+	content: '\2663';
+}
+
+
+.hearts, .diams {
+	color: var(--cards-font-color-light);
+}
+
+.hearts:after {
+	content: '\2665';
+}
+
+.diams:after {
+	content: '\2666';
 }

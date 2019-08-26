@@ -17,7 +17,7 @@
 }
 
 .start:hover {
-	background: var(--stop-btn-hover-color);
+	background: var(--start-btn-hover-color);
 }
 
 
