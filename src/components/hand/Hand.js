@@ -6,17 +6,26 @@ import styles from './Hand.module.css';
 import Card from '../card/Card';
 
 
-const { pareSt } = styles;
+const { pareSt, empty } = styles;
 
-const Hand = ({ hand }) => (
-	<div className={pareSt}>
-		{hand.map(({ name, suit, id }) => (
+const Hand = ({ hand }) => {
+	let content;
+	if (hand.length) {
+		content = hand.map(({ name, suit, id }) => (
 			<Card key={id}
 			      name={name}
 			      suit={suit}/>
-		))}
-	</div>
-);
+		));
+	} else {
+		content = <div className={empty}/>;
+	}
+
+	return (
+		<div className={pareSt}>
+			{content}
+		</div>
+	)
+};
 
 
 export default Hand;
