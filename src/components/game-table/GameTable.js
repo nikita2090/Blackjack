@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 
-/*import styles from './App.module.css';*/
+import styles from './GameTable.module.css';
 
 import Hand from '../hand/Hand';
 import Points from "../points/Points";
@@ -14,7 +14,7 @@ import { cards, mixCards } from "../../sources/playingCards";
 import { calcPoints, calcWinner, calcDeposit } from "../../sources/calcFunctions";
 import reducer from '../../sources/reducer';
 
-
+const { main, top, middle, bottom } = styles;
 
 const initialState = {
 	userHand: [],
@@ -169,25 +169,31 @@ const GameTable = () => {
 	executeBeforeRender();
 
 	return (
-		<main>
-			<Hand hand={dealerHand}/>
-			<Points points={dealerPoints}/>
+		<main className={main}>
+			<div className={top}>
+				<Hand hand={dealerHand}/>
+				<Points points={dealerPoints}/>
+			</div>
 
-			<Rules/>
-			<Winner winner={winner}/>
+			<div className={middle}>
+				<Rules/>
+				<Winner winner={winner}/>
+			</div>
 
-			<Points points={userPoints}/>
-			<Hand hand={userHand}/>
+			<div className={bottom}>
+				<Points points={userPoints}/>
+				<Hand hand={userHand}/>
 
-			<BetControls bet={bet}
-			             changeBet={changeBet}
-			             winner={winner}/>
+				<BetControls bet={bet}
+				             changeBet={changeBet}
+				             winner={winner}/>
 
-			<GameControls start={startGame}
-			              deposit={deposit}
-			              hit={hit}
-			              stop={stop}
-			              winner={winner}/>
+				<GameControls start={startGame}
+				              deposit={deposit}
+				              hit={hit}
+				              stop={stop}
+				              winner={winner}/>
+			</div>
 		</main>
 	);
 };
