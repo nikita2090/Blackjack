@@ -1,9 +1,20 @@
-.pareSt {
-	display: flex;
-	justify-content: center;
+@media screen and (min-width: 0px ){
+	.pareSt {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.empty {
+		height: 95px;
+	}
 }
 
-.empty {
-	height: 180px;
+@media screen and (min-width: 768px ){
+	.empty {
+		height: 180px;
+	}
 }
+
+
 

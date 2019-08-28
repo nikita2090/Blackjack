@@ -1,25 +1,46 @@
-.card {
-	width: 106px;
-	height: 158px;
-	padding: 6px 10px;
-	border-radius: 8px;
-	margin: 5px;
+@media screen and (min-width: 0px ){
+	.card {/*x0.7*/
+		width: 52px;
+		height: 83px;
+		padding: 3px 5px;
+		border-radius: 4px;
+		margin: 4px;
 
-	font-size: 18px;
-	font-family: 'Lexend Deca', sans-serif;
-	background: var(--cards-background-color);
+		font-size: 13px;
+		font-family: 'Lexend Deca', sans-serif;
+		background: var(--cards-background-color);
+	}
+
+	.pictureWrap {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 75%;
+	}
+
+	.big {
+		font-size: 50px;
+	}
+}
+
+@media screen and (min-width: 576px ){
+	.card {
+		width: 106px; /*178x126*/
+		height: 166px;
+		padding: 6px 10px;
+		border-radius: 8px;
+		margin: 5px;
+
+		font-size: 18px;
+		font-family: 'Lexend Deca', sans-serif;
+		background: var(--cards-background-color);
+	}
+
+	.big {
+		font-size: 100px;
+	}
 }
 
 
-.pictureWrap {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 75%;
-}
 
-
-.big {
-	font-size: 100px;
-}
 

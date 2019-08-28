@@ -1,28 +1,43 @@
-.wrap {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
+@media screen and (min-width: 0px ){
+	.wrap {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+	}
+
+	.panel {
+		display: flex;
+		justify-content: center;
+		position: relative;
+
+		--panel-middle-width: 140px;
+		--bet-height: 30px;
+	}
+
+	.betSt {
+		width: var(--panel-middle-width);
+		height: var(--bet-height);
+
+		background: gold;
+		text-align: center;
+		line-height: var(--bet-height);
+		font-size: 14px;
+		font-weight: bold;
+	}
 }
 
-.panel {
-	display: flex;
-	justify-content: center;
-	position: relative;
+@media screen and (min-width: 576px ){
+	.panel {
+		--panel-middle-width: 200px;
+		--bet-height: 40px;
+	}
 
-	--panel-middle-width: 200px;
-	--bet-height: 40px;
+	.betSt {
+		font-size: 16px;
+	}
 }
 
-.betSt {
-	width: var(--panel-middle-width);
-	height: var(--bet-height);
 
-	background: gold;
-	text-align: center;
-	line-height: var(--bet-height);
-	font-size: 16px;
-	font-weight: bold;
-}
 
 
 

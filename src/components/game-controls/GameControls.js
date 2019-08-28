@@ -16,7 +16,7 @@ const GameControls = ({ winner, deposit, start, hit, stop, }) => (
 			               onClick={start}/>
 
 
-			<div className={depositSt}>Your deposit: {deposit}</div>
+			<div className={depositSt}>Deposit: {deposit}</div>
 
 			<ControlButton name='hit'
 			               value='HIT'

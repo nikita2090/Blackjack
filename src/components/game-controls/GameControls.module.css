@@ -1,21 +1,34 @@
-.wrap {
-	display: flex;
-	justify-content: center;
-	margin-top: 5px;
+@media screen and (min-width: 0px ){
+	.wrap {
+		display: flex;
+		justify-content: center;
+		margin-top: 5px;
+	}
+
+	.panel {
+		display: flex;
+		justify-content: center;
+		position: relative;
+
+		--deposit-height: 50px;
+	}
+
+	.depositSt {
+		width: 140px;
+		border-radius: 10px;
+		height: var(--deposit-height);
+		line-height: var(--deposit-height);
+		text-align: center;
+		background: var(--transparent-black);
+	}
 }
 
-.panel {
-	display: flex;
-	justify-content: center;
-	position: relative;
+@media screen and (min-width: 576px ){
+	.panel {
+		--deposit-height: 70px;
+	}
 
-	--deposit-height: 70px;
-}
-
-.depositSt {
-	width: 200px;
-	height: var(--deposit-height);
-	line-height: var(--deposit-height);
-	text-align: center;
-	background: var(--transparent-black);
+	.depositSt {
+		width: 200px;
+	}
 }
