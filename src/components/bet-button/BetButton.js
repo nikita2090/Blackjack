@@ -11,10 +11,10 @@ const BetButton = ({ value, name, winner, onClick }) => {
 	let specialBtnClass;
 	switch (name) {
 		case 'minus':
-			specialBtnClass = btnLeft;
+			specialBtnClass = btnRight;
 			break;
 		case 'plus':
-			specialBtnClass = btnRight;
+			specialBtnClass = btnLeft;
 			break;
 		case 'double':
 			specialBtnClass = btnDouble;
