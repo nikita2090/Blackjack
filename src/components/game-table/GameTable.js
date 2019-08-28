@@ -14,7 +14,7 @@ import { cards, mixCards } from "../../sources/playingCards";
 import { calcPoints, calcWinner, calcDeposit } from "../../sources/calcFunctions";
 import reducer from '../../sources/reducer';
 
-const { main, top, middle, bottom } = styles;
+const { main, top, bottom } = styles;
 
 const initialState = {
 	userHand: [],
@@ -173,12 +173,10 @@ const GameTable = () => {
 			<div className={top}>
 				<Hand hand={dealerHand}/>
 				<Points points={dealerPoints}/>
+				<Rules/>
 			</div>
 
-			<div className={middle}>
-				<Rules/>
-				<Winner winner={winner}/>
-			</div>
+			<Winner winner={winner}/>
 
 			<div className={bottom}>
 				<Points points={userPoints}/>
