@@ -11,20 +11,20 @@ const { wrap, betSt, panel } = styles;
 const BetControls = ({ bet, winner, changeBet }) => (
 	<div className={wrap}>
 		<div className={panel}>
-			<BetButton value='-'
-			           name='minus'
+			<BetButton value='X2'
+			           name='double'
 			           winner={winner}
 			           onClick={changeBet}/>
-
-			<div className={betSt}>Bet: {bet}</div>
 
 			<BetButton value='+'
 			           name='plus'
 			           winner={winner}
 			           onClick={changeBet}/>
 
-			<BetButton value='X2'
-			           name='double'
+			<div className={betSt}>Bet: {bet}</div>
+
+			<BetButton value='-'
+			           name='minus'
 			           winner={winner}
 			           onClick={changeBet}/>
 		</div>
