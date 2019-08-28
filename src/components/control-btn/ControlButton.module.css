@@ -13,7 +13,7 @@
 
 .start {
 	background: var(--start-btn-main-color);
-	right: -80px;
+	left: -80px;
 }
 
 .start:hover {
@@ -23,7 +23,7 @@
 
 .stop {
 	background: var(--stop-btn-main-color);
-	left: -80px;
+	right: -160px;
 }
 
 .stop:hover {
@@ -33,7 +33,7 @@
 
 .hit {
 	background: var(--hit-btn-main-color);
-	right: -160px;
+	right: -80px;
 }
 
 .hit:hover {
