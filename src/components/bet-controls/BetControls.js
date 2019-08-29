@@ -21,7 +21,7 @@ const BetControls = ({ bet, winner, changeBet }) => (
 			           winner={winner}
 			           onClick={changeBet}/>
 
-			<div className={betSt}>Bet: {bet}</div>
+			<div className={betSt}>bet: {bet}</div>
 
 			<BetButton value='-'
 			           name='minus'

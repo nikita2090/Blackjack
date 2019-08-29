@@ -8,7 +8,7 @@ const {wrap, pointsSt} = styles;
 
 const Points = ({ points }) => (
 	<div className={wrap}>
-		<div className={pointsSt}>POINTS: {points}</div>
+		<div className={pointsSt}>points: {points}</div>
 	</div>
 );
 

@@ -11,20 +11,20 @@ const GameControls = ({ winner, deposit, start, hit, stop, }) => (
 	<div className={wrap}>
 		<div className={panel}>
 			<ControlButton name='start'
-			               value='START'
+			               value='start'
 			               disabled={!winner}
 			               onClick={start}/>
 
 
-			<div className={depositSt}>Deposit: {deposit}</div>
+			<div className={depositSt}>deposit: {deposit}</div>
 
 			<ControlButton name='hit'
-			               value='HIT'
+			               value='hit'
 			               disabled={!!winner}
 			               onClick={hit}/>
 
 			<ControlButton name='stop'
-			               value='STOP'
+			               value='stop'
 			               disabled={!!winner}
 			               onClick={stop}/>
 		</div>
