@@ -25,6 +25,16 @@
 
 @media screen and (min-width: 576px ){
 	.panel {
+		--deposit-height: 44px;
+	}
+
+	.depositSt {
+		width: 200px;
+	}
+}
+
+@media screen and (min-width: 768px ){
+	.panel {
 		--deposit-height: 70px;
 	}
 

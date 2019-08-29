@@ -50,6 +50,14 @@
 
 @media screen and (min-width: 576px) {
 	.btn {
+		--panelBtn-radius: 12px;
+		--btn-size: 32px;
+		--btn-indent: 5px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.btn {
 		--panelBtn-radius: 15px;
 		--btn-size: 40px;
 		--btn-indent: 10px;

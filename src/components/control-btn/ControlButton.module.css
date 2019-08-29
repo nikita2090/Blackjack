@@ -55,6 +55,14 @@
 
 @media screen and (min-width: 576px ) {
 	.btn {
+		--btn-main-size: 44px;
+		--btn-indent: 5px;
+		font-size: 12px;
+	}
+}
+
+@media screen and (min-width: 768px ) {
+	.btn {
 		--btn-main-size: 70px;
 		--btn-indent: 10px;
 		font-size: 14px;

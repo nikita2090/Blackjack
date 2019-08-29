@@ -1,6 +1,6 @@
 @media screen and (min-width: 0px ){
-	.card {/*x0.7*/
-		width: 52px;
+	.card {
+		width: 53px;
 		height: 83px;
 		padding: 3px 5px;
 		border-radius: 4px;
@@ -25,6 +25,22 @@
 
 @media screen and (min-width: 576px ){
 	.card {
+		width: 42px;
+		height: 66px;
+		padding: 2px 4px;
+		border-radius: 3px;
+		margin: 2px;
+
+		font-size: 12px;
+	}
+
+	.big {
+		font-size: 40px;
+	}
+}
+
+@media screen and (min-width: 768px ){
+	.card {
 		width: 106px; /*178x126*/
 		height: 166px;
 		padding: 6px 10px;
@@ -32,8 +48,6 @@
 		margin: 5px;
 
 		font-size: 18px;
-		font-family: 'Lexend Deca', sans-serif;
-		background: var(--cards-background-color);
 	}
 
 	.big {

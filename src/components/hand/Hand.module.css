@@ -6,7 +6,13 @@
 	}
 
 	.empty {
-		height: 95px;
+		height: 97px;
+	}
+}
+
+@media screen and (min-width: 576px ){
+	.empty {
+		height: 74px;
 	}
 }
 

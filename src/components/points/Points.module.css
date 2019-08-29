@@ -1,11 +1,21 @@
-.wrap {
-	display: flex;
-	justify-content: center;
+@media screen and (min-width: 0px ){
+	.wrap {
+		display: flex;
+		justify-content: center;
+	}
+
+	.pointsSt {
+		padding: 1px 4px 2px;
+		text-align: center;
+		font-size: 14px;
+		background: var(--transparent-black);
+	}
 }
 
-.pointsSt {
-	padding: 2px 8px 4px;
-	text-align: center;
-
-	background: var(--transparent-black);
+@media screen and (min-width: 768px ){
+	.pointsSt {
+		padding: 2px 8px 4px;
+		font-size: 16px;
+	}
 }
+

@@ -1,10 +1,18 @@
-.wrap {
-	flex: 1 0 auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+@media screen and (min-width: 0px ){
+	.wrap {
+		flex: 1 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.win {
+		font-size: 16px;
+	}
 }
 
-.win {
-	font-size: 20px;
+@media screen and (min-width: 768px ){
+	.win {
+		font-size: 20px;
+	}
 }

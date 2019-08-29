@@ -6,12 +6,6 @@
 	}
 }
 
-@media screen and (min-width: 576px ){
-	.rules {
-		font-size: 25px;
-	}
-}
-
 @media screen and (min-width: 768px ){
 	.rules {
 		font-size: 25px;
