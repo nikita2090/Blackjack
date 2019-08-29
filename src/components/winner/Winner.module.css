@@ -7,12 +7,15 @@
 	}
 
 	.win {
-		font-size: 16px;
+		font-size: 20px;
+		font-family: 'Abril Fatface', cursive;
+		letter-spacing: 1px;
 	}
 }
 
 @media screen and (min-width: 768px ){
 	.win {
-		font-size: 20px;
+		font-size: 24px;
+		letter-spacing: 2px;
 	}
 }

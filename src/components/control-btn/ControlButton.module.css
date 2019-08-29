@@ -3,6 +3,7 @@
 		position: absolute;
 		border: none;
 		outline: none;
+		font-family: 'Open Sans', sans-serif;
 
 		--btn-main-size: 48px;
 		--btn-indent: 4px;
